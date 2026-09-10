@@ -4,28 +4,34 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Lab 9: Configuring Backup and Recovery Functions &mdash; Info Security &amp; IT Risk Management</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f7f8fb;color:#1f2937;font-family:"Inter",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
-.site-header{background:white;border-bottom:1px solid #e6e9ef;padding:0.75rem 1rem}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#f5f4f8;color:#2d2d3a;font-family:"Inter",system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#7c5cbf;text-decoration:none}
+a:hover{color:#5a3d99}
+.site-header{background:white;border-bottom:1px solid #e0dcea;padding:0.75rem 1.5rem;position:sticky;top:0;z-index:100}
 .header-inner{max-width:1100px;margin:0 auto}
-.brand{display:inline-block;text-decoration:none}
 .brand svg{display:block}
-.hero{padding:2.5rem 0 1.5rem;background:linear-gradient(90deg,#fff 0,#f0f6ff 100%);border-bottom:1px solid #e6e9ef}
-.hero .container{max-width:800px;margin:0 auto;padding:0 1rem}
-.hero h1{font-size:1.5rem;margin:0 0 0.4rem;color:#1f2937}
-.hero .lead{color:#6b7280;margin:0;font-size:1rem}
-.lab-content{max-width:800px;margin:2rem auto;padding:0 1rem;line-height:1.8;font-size:1rem;color:#1f2937}
-.lab-content h2{font-size:1.3rem;margin-bottom:1rem;color:#1f2937}
-.lab-content p{margin-bottom:1.2rem;color:#374151}
-.lab-content code{background:#f3f4f6;padding:.15rem .4rem;border-radius:4px;font-size:.92rem;font-family:monospace}
-.lab-download{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #e6e9ef}
-.download-btn{display:inline-block;background:#0b74de;color:white;padding:.65rem 1.25rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.95rem}
-.download-btn:hover{background:#0958a8}
-.site-footer{padding:1.25rem;border-top:1px solid #e6e9ef;background:white;text-align:center;color:#6b7280;font-size:.9rem;margin-top:3rem}
-.optional-note{background:#fef9ec;border:1px solid #f5d97a;border-radius:8px;padding:1rem 1.25rem;color:#7c5c00;font-size:0.95rem;margin-top:1rem}
+.hero{padding:3rem 1.5rem 2rem;background:linear-gradient(135deg,#ede9f7 0%,#f0eef8 50%,#e8e6f0 100%);border-bottom:1px solid #ddd9ea}
+.hero .container{max-width:860px;margin:0 auto}
+.hero .badge{display:inline-block;background:#7c5cbf;color:white;font-size:0.78rem;font-weight:600;padding:0.25rem 0.75rem;border-radius:20px;margin-bottom:0.75rem;letter-spacing:0.04em;text-transform:uppercase}
+.hero h1{font-size:1.7rem;font-weight:700;color:#2d2d3a;margin-bottom:0.4rem}
+.hero .lead{color:#6b6880;font-size:1rem;line-height:1.6}
+.lab-content{max-width:860px;margin:2rem auto;padding:0 1.5rem}
+.content-card{background:white;border-radius:12px;padding:1.75rem 2rem;box-shadow:0 4px 16px rgba(100,80,160,0.08);border:1px solid #ede9f7;margin-bottom:1.25rem}
+.content-card h2{font-size:1.1rem;font-weight:600;color:#5a3d99;margin-bottom:0.9rem;padding-bottom:0.55rem;border-bottom:2px solid #ede9f7}
+.content-card p{color:#444;line-height:1.8;margin-bottom:1rem;font-size:0.96rem}
+.content-card p:last-child{margin-bottom:0}
+.content-card code{background:#f0eef8;padding:.15rem .4rem;border-radius:4px;font-size:.88rem;font-family:monospace;color:#5a3d99}
+.optional-note{background:#fef9ec;border:1px solid #f5d97a;border-radius:8px;padding:1rem 1.25rem;color:#7c5c00;font-size:0.93rem}
+.lab-download{margin-top:0.5rem}
+.download-btn{display:inline-block;background:#7c5cbf;color:white;padding:.65rem 1.4rem;border-radius:8px;text-decoration:none;font-weight:600;font-size:.93rem;transition:background 0.2s}
+.download-btn:hover{background:#5a3d99;color:white}
+.back-link{display:inline-flex;align-items:center;gap:0.4rem;color:#7c5cbf;font-size:0.9rem;font-weight:500;margin-bottom:1.25rem}
+.back-link:hover{color:#5a3d99}
+.site-footer{padding:1.25rem;border-top:1px solid #e0dcea;background:white;text-align:center;color:#9990b0;font-size:0.88rem;margin-top:1rem}
+@media(max-width:620px){.hero h1{font-size:1.3rem}.lab-content{padding:0 1rem}}
 </style>
 </head>
 <body>
@@ -36,15 +42,19 @@ body{margin:0;background:#f7f8fb;color:#1f2937;font-family:"Inter",system-ui,-ap
   </header>
   <section class="hero">
     <div class="container">
+      <div class="badge">Lab 9</div>
       <h1>Lab 9: Configuring Backup and Recovery Functions</h1>
       <p class="lead">Info Security &amp; IT Risk Management</p>
     </div>
   </section>
   <main class="lab-content">
-    <h2>Configuring Backup and Recovery</h2>
-<p>In this lab, I configured backup and recovery functions that support business continuity, disaster recovery, and high availability. I installed the Windows Server Backup feature and configured a daily System State backup. I also reviewed the steps involved in restoring a Domain Controller from an existing System State backup. In the second section, I configured two web servers to use a common Network File System (NFS) share and set up load balancing on a pfSense firewall-router.</p>
-<p>The tools I used were Windows Server Backup, which I configured to create System State backups, and pfSense to configure load balancing between web servers. I also practiced restoring a Domain Controller, which is one of the most critical systems in a network since it manages authentication and user access.</p>
-<p>I learned from this lab the importance of backup strategies and System State backups. Backups are not just copies — they are a last line of defense. I also learned that traffic can be distributed across multiple servers through load balancing, which improves both performance and fault tolerance.</p>
+    <a class="back-link" href="../index.html#labs">&larr; Back to all labs</a>
+    <div class="content-card">
+      <h2>Configuring Backup and Recovery</h2>
+      <p>In this lab, I configured backup and recovery functions that support business continuity, disaster recovery, and high availability. I installed the Windows Server Backup feature and configured a daily System State backup. I also reviewed the steps involved in restoring a Domain Controller from an existing System State backup. In the second section, I configured two web servers to use a common Network File System share and set up load balancing on a pfSense firewall-router.</p>
+      <p>The tools I used were Windows Server Backup and pfSense to configure load balancing between web servers. I also practiced restoring a Domain Controller, which is one of the most critical systems in a network since it manages authentication and user access.</p>
+      <p>I learned from this lab the importance of backup strategies and System State backups. I also learned that traffic can be distributed across multiple servers through load balancing, which improves both performance and fault tolerance.</p>
+    </div>
     <div class="lab-download"><a href="../assets/pdf/lab-9-recovery-functions.pdf" class="download-btn" target="_blank">Download Lab Report (PDF) &rarr;</a></div>
   </main>
   <footer class="site-footer">
